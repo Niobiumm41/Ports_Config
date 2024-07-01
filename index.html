@@ -43,21 +43,23 @@
     config filter dhcp_server ports :port: state enable
     config igmp_snooping multicast_vlan 99 delete member_port :port:
     config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-    config stp ports :port:restricted_role true restricted_tcn true fbpdu dis state dis
+    config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
     config loopdetect ports :port: state enable
+    config ports :port: state dis
     save
 </p>
 
 <p id="A1_FTTH">
-    config vlan vlanid 1-4094 delete ${port.value}
-    config vlan -PLANETA- add untagged ${port.value}
-    config ports ${port.value} description ${dogovor.value}
-    config port_security ${port.value} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-    config filter dhcp_server ports ${port.value} state enable
-    config igmp_snooping multicast_vlan 99 delete tag_member_port ${port.value}
-    config traffic control ${port.value} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-    config stp ports ${port.value} restricted_role true restricted_tcn true fbpdu dis state dis
-    config loopdetect ports ${port.value} state enable
+    config vlan vlanid 1-4094 delete :port:
+    config vlan -PLANETA- add untagged :port:
+    config ports :port: description :dogovor:
+    config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+    config filter dhcp_server ports :port: state enable
+    config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
+    config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+    config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
+    config loopdetect ports :port: state enable
+    config ports :port: state dis
     save 
 </p>
     <script src="script.js"></script>

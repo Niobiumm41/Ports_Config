@@ -12,17 +12,17 @@ const A1_FTTH = document.getElementById("A1_FTTH");
 btn.addEventListener('click', Ports_Config);
 
 function Ports_Config() {
-//     if (sw.value == "D-LINK_1210_A1" && utp_ftth.value == "UTP") {
-//         config.value == A1_UTP.textContent;
-//         } 
-//     if (sw.value = "D-LINK_1210_A2") {
-//         config.value = "errrrr";
-// }
-
-var port_cur = port.value;
-var dogovor_cur = dogovor.value;
-var new_config = A1_UTP.textContent.replaceAll(":port:", port_cur);
-var new_config_end = new_config.replaceAll(":dogovor:", dogovor_cur);
-config.value = new_config_end;
+    var port_cur = port.value;
+    var dogovor_cur = dogovor.value;
+    if (sw.value == "D-LINK_1210_A1" && utp_ftth.value == "UTP") {
+    var new_config = A1_UTP.textContent.replaceAll(":port:", port_cur);
+    var new_config_end = new_config.replaceAll(":dogovor:", dogovor_cur);
+    config.value = new_config_end;
+    } if (sw.value == "D-LINK_1210_A1" && utp_ftth.value == "FTTH")  {
+        var new_config = A1_FTTH.textContent.replaceAll(":port:", port_cur);
+        var new_config_end = new_config.replaceAll(":dogovor:", dogovor_cur);
+        config.value = new_config_end;
+    } if (sw.value == "D-LINK_1210_A2" && utp_ftth.value == "UTP") {
+        
+    }
 }
-
