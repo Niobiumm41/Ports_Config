@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=devices-width, initial-scale=1.0">
+    <title>Ports Config</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>Ports_Config</h1>
+<div class="parametr">
+    <p>1 Выбрать модель SW:
+    <select name="Модель SW" id="sw">
+        <option value="D-LINK_1210_A1">D-LINK DGS-1210-28MEA1</option>
+        <option value="D-LINK_1210_A2">D-LINK DGS-1210-28MEA2</option>
+        <option value="Eltex_2428">Eltex MES-2428</option>
+    </select>
+</p>
+    <p>2 Выбрать технологию подключения:
+    <select name="Технологию подключения" id="utp_ftth">
+        <option value="UTP">UTP</option>
+        <option value="FTTH">FTTH</option>
+    </select>
+</p>
+    <p>3 Указать номер порта:
+    <input type="text" size="10" id="port">
+</p>
+    <p>4 Указать номер договора:
+    <input type="text" size="15" id="dogovor">
+</p>
+    <button id="btn">Создать</button>
+</div>
+
+<div id="okno">
+    <textarea id="config" rows="25" cols="150" name="textArea"></textarea>
+</div>
+
+<p id="A1_UTP">
+    config vlan vlanid 1-4094 delete :port:
+    config vlan -PLANETA- add untagged :port:
+    config ports :port: description :dogovor:
+    config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+    config filter dhcp_server ports :port: state enable
+    config igmp_snooping multicast_vlan 99 delete member_port :port:
+    config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+    config stp ports :port:restricted_role true restricted_tcn true fbpdu dis state dis
+    config loopdetect ports :port: state enable
+    save
+</p>
+
+<p id="A1_FTTH">
+    config vlan vlanid 1-4094 delete ${port.value}
+    config vlan -PLANETA- add untagged ${port.value}
+    config ports ${port.value} description ${dogovor.value}
+    config port_security ${port.value} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+    config filter dhcp_server ports ${port.value} state enable
+    config igmp_snooping multicast_vlan 99 delete tag_member_port ${port.value}
+    config traffic control ${port.value} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+    config stp ports ${port.value} restricted_role true restricted_tcn true fbpdu dis state dis
+    config loopdetect ports ${port.value} state enable
+    save 
+</p>
+    <script src="script.js"></script>
+</body>
+</html>
+
