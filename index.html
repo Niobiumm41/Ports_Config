@@ -8,60 +8,213 @@
 </head>
 <body>
 <h1>Ports_Config</h1>
-<div class="parametr">
-    <p>1 Выбрать модель SW:
+<p>Выбрать модель SW:
     <select name="Модель SW" id="sw">
-        <option value="D-LINK_1210_A1">D-LINK DGS-1210-28MEA1</option>
-        <option value="D-LINK_1210_A2">D-LINK DGS-1210-28MEA2</option>
+        <option value="none">-Не выбрано-</option>
+        <option value="D-LINK_1210_A1">D-LINK DGS-1210-A1</option>
+        <option value="D-LINK_1210_A2">D-LINK DGS-1210-A2</option>
         <option value="Eltex_2428">Eltex MES-2428</option>
+        <option value="GPON_MA4000">GPON MA4000</option>
     </select>
 </p>
-    <p>2 Выбрать технологию подключения:
-    <select name="Технологию подключения" id="utp_ftth">
+<div id="parametr">
+    <p id="pole_utp_ftth">Выбрать технологию подключения:
+    <select name="Технологию подключения" id="utp_ftth"> 
+        <!-- <option value="none">none</option> -->
         <option value="UTP">UTP</option>
         <option value="FTTH">FTTH</option>
     </select>
-</p>
-    <p>3 Указать номер порта:
-    <input type="text" size="10" id="port">
-</p>
-    <p>4 Указать номер договора:
-    <input type="text" size="15" id="dogovor">
-</p>
+    </p>
+    <p id="pole_port">Указать номер порта:
+        <input type="text" size="10" id="port">
+    </p>
+    <p id="pole_dogovor">Указать номер договора:
+        <input type="text" size="15" id="dogovor">
+    </p>
+    <p id="pole_vlan">Указать VLAN:
+        <input type="text" size="15" id="vlan">
+    </p>
+    <p id="pole_port_GPON">Указать порт:
+        <input type="text" size="15" id="port_GPON">
+    </p>
+    <p id="pole_SN_GPON">Указать S/N:
+        <input type="text" size="15" id="SN_GPON">
+    </p>
+    <p id="pole_pass_GPON">Указать пароль:
+        <input type="text" size="15" id="pass_GPON">
+    </p>
     <button id="btn">Создать</button>
 </div>
 
 <div id="okno">
-    <textarea id="config" rows="25" cols="150" name="textArea"></textarea>
+    <textarea spellcheck="false" id="config" rows="25" cols="150" name="textArea"></textarea>
 </div>
 
 <p id="A1_UTP">
-    config vlan vlanid 1-4094 delete :port:
-    config vlan -PLANETA- add untagged :port:
-    config ports :port: description :dogovor:
-    config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-    config filter dhcp_server ports :port: state enable
-    config igmp_snooping multicast_vlan 99 delete member_port :port:
-    config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-    config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-    config loopdetect ports :port: state enable
-    config ports :port: state dis
-    save
+show ports :port: configuration vlan 
+config vlan vlanid 1-4094 delete :port:
+config vlan -PLANETA- add untagged :port:
+config ports :port: description :dogovor:
+config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports :port: state enable
+config igmp_snooping multicast_vlan 99 delete member_port :port:
+config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports :port: state enable
+config ports :port: state dis
+save
 </p>
 
 <p id="A1_FTTH">
-    config vlan vlanid 1-4094 delete :port:
-    config vlan -PLANETA- add untagged :port:
-    config ports :port: description :dogovor:
-    config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-    config filter dhcp_server ports :port: state enable
-    config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
-    config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-    config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-    config loopdetect ports :port: state enable
-    config ports :port: state dis
-    save 
+show ports :port: configuration vlan 
+config vlan vlanid 1-4094 delete :port:
+config vlan -PLANETA- add untagged :port:
+config ports :port: description :dogovor:
+config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports :port: state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
+config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports :port: state enable
+config ports :port: state dis
+save 
 </p>
+
+<p id="A2_UTP">
+show ports :port: configuration vlan 
+config vlan vlanid 1-4094 delete :port:
+config vlan -PLANETA- add untagged :port:
+config ports :port: description :dogovor:
+config ports :port: capability_advertised 1000_full 100_full 100_half 10_full 10_half
+config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports :port: state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
+config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports :port: state enable
+config ports :port: state dis
+save 
+</p>
+
+<p id="A2_FTTH">
+show ports :port: configuration vlan 
+config vlan vlanid 1-4094 delete :port:
+config vlan -PLANETA- add untagged :port:
+config ports :port: description :dogovor:
+config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports :port: state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
+config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports :port: state enable
+config ports :port: state dis
+save 
+</p>
+
+<p id="Eltex_UTP">
+show interfaces status   - список портов
+show interfaces switchport gi0/:port:  - смотрим влан/настройки на порту
+sh mac-address-table int gi0/:port:   - смотрим мак
+sh int des  - смотрим деск
+sh running-config interface gi0/:port:  - смотреть настрйоки на порту
+sh logging   - логи
+
+conf t
+interface gi0/:port:
+description :dogovor:
+dcs agent-circuit-identifier "%h eth %u/%s/%i:%v"
+dcs remote-agent-identifier "%M"
+ip binding limit 5
+negotiation 10h 10f 100h 100f
+storm-control broadcast level pps 200
+storm-control multicast level pps 200
+loopback-detection enable
+spanning-tree disable
+spanning-tree bpdu-receive disabled
+spanning-tree bpdu-transmit disabled
+switchport acceptable-frame-type untaggedAndPriorityTagged
+switchport general allowed vlan none
+no switchport default-vlan tagged
+no switchport general pvid
+switchport mode access
+switchport access vlan :vlan:
+switchport protected
+switchport port-security enable
+switchport port-security mode max-addresses
+switchport port-security violation restrict
+no switchport map protocols-group 1
+no lldp transmit
+no lldp receive  
+ip igmp snooping leavemode fastLeave
+ip igmp snooping ratelimit 30
+no shutdown
+!
+exit
+copy running-config startup-config
+</p>
+
+<p id="Eltex_FTTH">
+show interfaces status   - список портов
+show interfaces switchport gi0/:port:  - смотрим влан/настройки на порту
+sh mac-address-table int gi0/:port:   - смотрим мак
+sh int des  - смотрим деск
+sh running-config interface gi0/:port:  - смотреть настрйоки на порту
+sh logging   - логи
+
+conf t
+interface gi0/:port:
+description :dogovor:
+dcs agent-circuit-identifier "%h eth %u/%s/%i:%v"
+dcs remote-agent-identifier "%M"
+ip binding limit 5
+storm-control broadcast level pps 200
+storm-control multicast level pps 200
+loopback-detection enable
+spanning-tree disable
+spanning-tree bpdu-receive disabled
+spanning-tree bpdu-transmit disabled
+switchport acceptable-frame-type untaggedAndPriorityTagged
+switchport general allowed vlan none
+no switchport default-vlan tagged
+no switchport general pvid
+switchport mode access
+switchport access vlan :vlan:
+switchport protected
+switchport port-security enable
+switchport port-security mode max-addresses
+switchport port-security violation restrict
+no switchport map protocols-group 1
+no lldp transmit
+no lldp receive  
+ip igmp snooping leavemode fastLeave
+ip igmp snooping ratelimit 30
+no shutdown
+!
+exit
+copy running-config startup-config
+</p>
+
+<p id="GPON_4000">
+show interface ont 13/2 unactivated
+show running-config interface ont 13/2/5 :port_GPON:
+show mac interface ont 13/2/5 :port_GPON:
+    
+configure terminal      
+interface ont 13/2/5:port_GPON:
+description "ONT-13-2-5" :port_GPON:
+serial ":SN_GPON:"
+password ":pass_GPON:"
+service 4 profile cross-connect "crossconnect-01"
+service 4 profile dba "dba-00"
+profile ports "ports-01"
+template "template-10"
+exit
+exit     
+commit
+confirm
+</p>
+
+
     <script src="script.js"></script>
 </body>
 </html>

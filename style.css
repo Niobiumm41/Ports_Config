@@ -5,7 +5,9 @@ body {
     font-size: 16px;
 }
 
-.parametr {
+#parametr {
+    width: 100px;
+    height: 195px;
     padding-top: 0px;
     padding-left: 15px;
     padding-bottom: 20px;
@@ -31,7 +33,8 @@ h1 {
     text-transform: uppercase;
 }
 
-
-#A1_UTP, #A1_FTTH {
+#A1_UTP, #A1_FTTH, #A2_UTP, #A2_FTTH, #Eltex_UTP, #Eltex_FTTH, #GPON_4000, 
+#pole_utp_ftth, #pole_port, #pole_dogovor, #pole_vlan, #btn, #pole_port_GPON, 
+#pole_SN_GPON, #pole_pass_GPON {
     display: none;
 }
