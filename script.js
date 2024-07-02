@@ -40,11 +40,15 @@ function SW_parametr() {
         pole_vlan.style.display = "block";
         btn.style.display = "block";
     } if (sw.value == "GPON_MA4000") {
+        pole_port_GPON.display = "block";
+        pole_SN_GPON.display = "block";
+        pole_pass_GPON.display = "block";
+        btn.style.display = "block";
         pole_utp_ftth.style.display = "none";
         pole_port.style.display = "none";  
         pole_dogovor.style.display = "none";
         pole_vlan.style.display = "none";
-        pole_vlan_GPON.display = "block";
+        pole_port_GPON.display = "block";
         pole_SN_GPON.display = "block";
         pole_pass_GPON.display = "block";
         btn.style.display = "block";
