@@ -10,9 +10,9 @@ const pole_port =  document.getElementById("pole_port");
 const pole_dogovor =  document.getElementById("pole_dogovor");
 const pole_vlan =  document.getElementById("pole_vlan");
 const parametr =  document.getElementById("parametr");
-const pole_port_GPON =  document.getElementById("pole_port_GPON");
-const pole_SN_GPON =  document.getElementById("pole_SN_GPON");
-const pole_pass_GPON =  document.getElementById("pole_pass_GPON");
+const pole_portGPON =  document.getElementById("pole_portGPON");
+const pole_SNGPON =  document.getElementById("pole_SNGPON");
+const pole_passGPON =  document.getElementById("pole_passGPON");
 
 const A1_UTP = document.getElementById("A1_UTP");
 const A1_FTTH = document.getElementById("A1_FTTH");
@@ -32,32 +32,33 @@ function SW_parametr() {
         pole_port.style.display = "block";
         pole_dogovor.style.display = "block";
         pole_vlan.style.display = "none";
-        btn.style.display = "block";
+        pole_portGPON.style.display = "none";
+        pole_SNGPON.style.display = "none";
+        pole_passGPON.style.display = "none";
     } if (sw.value == "Eltex_2428") {
         pole_utp_ftth.style.display = "block";
         pole_port.style.display = "block";
         pole_dogovor.style.display = "block";
         pole_vlan.style.display = "block";
-        btn.style.display = "block";
+        pole_portGPON.style.display = "none";
+        pole_SNGPON.style.display = "none";
+        pole_passGPON.style.display = "none";
     } if (sw.value == "GPON_MA4000") {
-        pole_port_GPON.display = "block";
-        pole_SN_GPON.display = "block";
-        pole_pass_GPON.display = "block";
-        btn.style.display = "block";
+        pole_portGPON.style.display = "block";
+        pole_SNGPON.style.display = "block";
+        pole_passGPON.style.display = "block";
         pole_utp_ftth.style.display = "none";
-        pole_port.style.display = "none";  
+        pole_port.style.display = "none";
         pole_dogovor.style.display = "none";
         pole_vlan.style.display = "none";
-        pole_port_GPON.display = "block";
-        pole_SN_GPON.display = "block";
-        pole_pass_GPON.display = "block";
-        btn.style.display = "block";
     } if (sw.value == "none") {
         pole_utp_ftth.style.display = "none";
         pole_port.style.display = "none";
         pole_dogovor.style.display = "none";
         pole_vlan.style.display = "none";
-        btn.style.display = "none";
+        pole_portGPON.style.display = "none";
+        pole_SNGPON.style.display = "none";
+        pole_passGPON.style.display = "none";
     }
 }
 
