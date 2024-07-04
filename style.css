@@ -24,20 +24,29 @@ body {
     font-size: 16px;
 }
 
-#btn {
+#btn_create {
     position: absolute;
     left: 418px;
     top: 300px;
     width: 120px;
     height: 30px;
+    font-weight: bold;
+}
+
+#btn_clean {
+    position: absolute;
+    left: 418px;
+    top: 80px;
+    width: 120px;
+    height: 25px;
 }
 
 h1 {
     text-transform: uppercase;
 }
 
-#A1_UTP, #A1_FTTH, #A2_UTP, #A2_FTTH, #Eltex_UTP, #Eltex_FTTH, #GPON_4000, 
-#pole_utp_ftth, #pole_port, #pole_dogovor, #pole_vlan, #pole_portGPON, 
+#A1_UTP, #A1_FTTH, #A2_UTP, #A2_FTTH, #Eltex_UTP, #Eltex_FTTH, #GPON_4000, #GPON_MA5800, 
+#pole_utp_ftth, #pole_port, #pole_dogovor, #pole_vlan, #pole_portGPON4000, #pole_portGPON5800,
 #pole_SNGPON, #pole_passGPON {
     display: none;
 }

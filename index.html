@@ -15,7 +15,9 @@
         <option value="D-LINK_1210_A2">D-LINK DGS-1210-A2</option>
         <option value="Eltex_2428">Eltex MES-2428</option>
         <option value="GPON_MA4000">GPON MA4000</option>
+        <option value="GPON_MA5800">GPON MA5800</option>
     </select>
+    <button id="btn_clean">Очистить</button>
 </p>
 <div id="parametr">
     <p id="pole_utp_ftth">Выбрать технологию подключения:
@@ -34,18 +36,26 @@
     <p id="pole_vlan">Указать VLAN:
         <input type="text" size="15" id="vlan">
     </p>
-    <p id="pole_portGPON">Указать порт GPON:
-        <input type="text" size="15" id="port_GPON">
+    <p id="pole_portGPON4000">Указать порт GPON:
+        <input type="text" size="3" id="port1_GPON4000">
+        <input type="text" size="3" id="port2_GPON4000">
+        <input type="text" size="3" id="port3_GPON4000">
+    </p>
+    <p id="pole_portGPON5800">Указать порт GPON:
+        <input type="text" size="3" id="port1_GPON5800">
+        <input type="text" size="3" id="port2_GPON5800">
+        <input type="text" size="3" id="port3_GPON5800">
+        <input type="text" size="3" id="port4_GPON5800">
     </p>
     <p id="pole_SNGPON">Указать S/N:
-        <input type="text" size="15" id="SN_GPON">
+        <input type="text" size="19" id="SN_GPON">
     </p>
     <p id="pole_passGPON">Указать пароль:
         <input type="text" size="15" id="pass_GPON">
     </p>
 </div>
 
-<button id="btn">Создать</button>
+<button id="btn_create">Создать</button>
 
 <div id="okno">
     <textarea spellcheck="false" id="config" rows="25" cols="150" name="textArea"></textarea>
@@ -196,13 +206,13 @@ copy running-config startup-config
 </p>
 
 <p id="GPON_4000">
-show interface ont 13/2 unactivated
-show running-config interface ont 13/2/5 :port_GPON:
-show mac interface ont 13/2/5 :port_GPON:
-    
+show interface ont :port1_GPON4000:/:port2_GPON4000: unactivated
+show running-config interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
+show mac interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
+
 configure terminal      
-interface ont 13/2/5:port_GPON:
-description "ONT-13-2-5" :port_GPON:
+interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
+description "ONT-:port1_GPON4000:-:port2_GPON4000:-:port3_GPON4000:" 
 serial ":SN_GPON:"
 password ":pass_GPON:"
 service 4 profile cross-connect "crossconnect-01"
@@ -214,6 +224,12 @@ exit
 commit
 confirm
 </p>
+
+<p id="GPON_MA5800">
+    enable
+    display ont info 0 6 5 35
+</p>
+
 
 
     <script src="script.js"></script>
