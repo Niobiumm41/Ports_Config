@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=devices-width, initial-scale=1.0">
     <title>Ports Config</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Ports_Config</h1>
@@ -22,36 +22,47 @@
 <div id="parametr">
     <p id="pole_utp_ftth">Выбрать технологию подключения:
     <select name="Технологию подключения" id="utp_ftth"> 
-        <!-- <option value="none">none</option> -->
         <option value="UTP">UTP</option>
         <option value="FTTH">FTTH</option>
     </select>
     </p>
     <p id="pole_port">Указать номер порта:
-        <input type="text" size="10" id="port">
+        <input type="text" size="10" id="interface">
     </p>
-    <p id="pole_dogovor">Указать номер договора:
-        <input type="text" size="15" id="dogovor">
+    <p id="pole_ip_sw">Выбрать ip sw:
+        <select name="Выбрать ip sw" id="ip_sw"> 
+            <option value="ip_245">10.228.0.245</option>
+            <option value="ip_other">остальные ip</option>
+        </select>
     </p>
     <p id="pole_vlan">Указать VLAN:
         <input type="text" size="15" id="vlan">
     </p>
-    <p id="pole_portGPON4000">Указать порт GPON:
-        <input type="text" size="3" id="port1_GPON4000">
-        <input type="text" size="3" id="port2_GPON4000">
-        <input type="text" size="3" id="port3_GPON4000">
+    <p id="pole_portG4">Указать порт GPON:
+        <input type="text" size="3" id="slot_G4">
+        <input type="text" size="3" id="port_G4">
+        <input type="text" size="3" id="id_G4">
     </p>
-    <p id="pole_portGPON5800">Указать порт GPON:
-        <input type="text" size="3" id="port1_GPON5800">
-        <input type="text" size="3" id="port2_GPON5800">
-        <input type="text" size="3" id="port3_GPON5800">
-        <input type="text" size="3" id="port4_GPON5800">
+    <p id="pole_portG58">Указать порт GPON:
+        <input type="text" size="3" id="frame_G58">
+        <input type="text" size="3" id="slot_G58">
+        <input type="text" size="3" id="port_G58">
+        <input type="text" size="3" id="id_G58">
     </p>
-    <p id="pole_SNGPON">Указать S/N:
-        <input type="text" size="19" id="SN_GPON">
+    <p id="pole_vlanTR069">Указать VLAN TR069:
+        <input type="text" size="15" id="vlanTR069">
+    </p>
+    <p id="pole_vlanFVNO">Указать VLAN FVNO:
+        <input type="text" size="15" id="vlanFVNO">
+    </p>
+    <p id="pole_snGPON">Указать S/N:
+        <input type="text" size="19" id="sn_GPON">
     </p>
     <p id="pole_passGPON">Указать пароль:
         <input type="text" size="15" id="pass_GPON">
+    </p>
+    <p id="pole_contract">Указать номер договора:
+        <input type="text" size="15" id="contract">
     </p>
 </div>
 
@@ -62,77 +73,77 @@
 </div>
 
 <p id="A1_UTP">
-show ports :port: configuration vlan 
-config vlan vlanid 1-4094 delete :port:
-config vlan -PLANETA- add untagged :port:
-config ports :port: description :dogovor:
-config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-config filter dhcp_server ports :port: state enable
-config igmp_snooping multicast_vlan 99 delete member_port :port:
-config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-config loopdetect ports :port: state enable
-config ports :port: state dis
+show ports {interface_id} configuration vlan 
+config vlan vlanid 1-4094 delete {interface_id}
+config vlan -PLANETA- add untagged {interface_id}
+config ports {interface_id} description {contract_id}
+config port_security {interface_id} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports {interface_id} state enable
+config igmp_snooping multicast_vlan 99 delete member_port {interface_id}
+config traffic control {interface_id} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports {interface_id} restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports {interface_id} state enable
+config ports {interface_id} state dis
 save
 </p>
 
 <p id="A1_FTTH">
-show ports :port: configuration vlan 
-config vlan vlanid 1-4094 delete :port:
-config vlan -PLANETA- add untagged :port:
-config ports :port: description :dogovor:
-config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-config filter dhcp_server ports :port: state enable
-config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
-config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-config loopdetect ports :port: state enable
-config ports :port: state dis
+show ports {interface_id} configuration vlan 
+config vlan vlanid 1-4094 delete {interface_id}
+config vlan -PLANETA- add untagged {interface_id}
+config ports {interface_id} description {contract_id}
+config port_security {interface_id} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports {interface_id} state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port {interface_id}
+config traffic control {interface_id} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports {interface_id} restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports {interface_id} state enable
+config ports {interface_id} state dis
 save 
 </p>
 
 <p id="A2_UTP">
-show ports :port: configuration vlan 
-config vlan vlanid 1-4094 delete :port:
-config vlan -PLANETA- add untagged :port:
-config ports :port: description :dogovor:
-config ports :port: capability_advertised 1000_full 100_full 100_half 10_full 10_half
-config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-config filter dhcp_server ports :port: state enable
-config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
-config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-config loopdetect ports :port: state enable
-config ports :port: state dis
+show ports {interface_id} configuration vlan 
+config vlan vlanid 1-4094 delete {interface_id}
+config vlan -PLANETA- add untagged {interface_id}
+config ports {interface_id} description {contract_id}
+config ports {interface_id} capability_advertised 1000_full 100_full 100_half 10_full 10_half
+config port_security {interface_id} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports {interface_id} state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port {interface_id}
+config traffic control {interface_id} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports {interface_id} restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports {interface_id} state enable
+config ports {interface_id} state dis
 save 
 </p>
 
 <p id="A2_FTTH">
-show ports :port: configuration vlan 
-config vlan vlanid 1-4094 delete :port:
-config vlan -PLANETA- add untagged :port:
-config ports :port: description :dogovor:
-config port_security :port: admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
-config filter dhcp_server ports :port: state enable
-config igmp_snooping multicast_vlan 99 delete tag_member_port :port:
-config traffic control :port: action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
-config stp ports :port: restricted_role true restricted_tcn true fbpdu dis state dis
-config loopdetect ports :port: state enable
-config ports :port: state dis
+show ports {interface_id} configuration vlan 
+config vlan vlanid 1-4094 delete {interface_id}
+config vlan -PLANETA- add untagged {interface_id}
+config ports {interface_id} description {contract_id}
+config port_security {interface_id} admin_state enable max_learning_addr 1 lock_address_mode DeleteOnTimeout
+config filter dhcp_server ports {interface_id} state enable
+config igmp_snooping multicast_vlan 99 delete tag_member_port {interface_id}
+config traffic control {interface_id} action shutdown unicast disable broadcast enable multicast enable countdown 5 time_interval 5 threshold 200
+config stp ports {interface_id} restricted_role true restricted_tcn true fbpdu dis state dis
+config loopdetect ports {interface_id} state enable
+config ports {interface_id} state dis
 save 
 </p>
 
 <p id="Eltex_UTP">
 show interfaces status   - список портов
-show interfaces switchport gi0/:port:  - смотрим влан/настройки на порту
-sh mac-address-table int gi0/:port:   - смотрим мак
+show interfaces switchport gi0/{interface_id}  - смотрим влан/настройки на порту
+sh mac-address-table int gi0/{interface_id}   - смотрим мак
 sh int des  - смотрим деск
-sh running-config interface gi0/:port:  - смотреть настрйоки на порту
+sh running-config interface gi0/{interface_id}  - смотреть настрйоки на порту
 sh logging   - логи
 
 conf t
-interface gi0/:port:
-description :dogovor:
+interface gi0/{interface_id}
+description {contract_id}
 dcs agent-circuit-identifier "%h eth %u/%s/%i:%v"
 dcs remote-agent-identifier "%M"
 ip binding limit 5
@@ -148,7 +159,7 @@ switchport general allowed vlan none
 no switchport default-vlan tagged
 no switchport general pvid
 switchport mode access
-switchport access vlan :vlan:
+switchport access vlan {tag_vlan}
 switchport protected
 switchport port-security enable
 switchport port-security mode max-addresses
@@ -166,15 +177,15 @@ copy running-config startup-config
 
 <p id="Eltex_FTTH">
 show interfaces status   - список портов
-show interfaces switchport gi0/:port:  - смотрим влан/настройки на порту
-sh mac-address-table int gi0/:port:   - смотрим мак
+show interfaces switchport gi0/{interface_id}  - смотрим влан/настройки на порту
+sh mac-address-table int gi0/{interface_id}   - смотрим мак
 sh int des  - смотрим деск
-sh running-config interface gi0/:port:  - смотреть настрйоки на порту
+sh running-config interface gi0/{interface_id}  - смотреть настрйоки на порту
 sh logging   - логи
 
 conf t
-interface gi0/:port:
-description :dogovor:
+interface gi0/{interface_id}
+description {contract_id}
 dcs agent-circuit-identifier "%h eth %u/%s/%i:%v"
 dcs remote-agent-identifier "%M"
 ip binding limit 5
@@ -189,7 +200,7 @@ switchport general allowed vlan none
 no switchport default-vlan tagged
 no switchport general pvid
 switchport mode access
-switchport access vlan :vlan:
+switchport access vlan {tag_vlan}
 switchport protected
 switchport port-security enable
 switchport port-security mode max-addresses
@@ -206,15 +217,15 @@ copy running-config startup-config
 </p>
 
 <p id="GPON_4000">
-show interface ont :port1_GPON4000:/:port2_GPON4000: unactivated
-show running-config interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
-show mac interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
+show interface ont {slot}/{port} unactivated
+show running-config interface ont {slot}/{port}/{id}
+show mac interface ont {slot}/{port}/{id}
 
 configure terminal      
-interface ont :port1_GPON4000:/:port2_GPON4000:/:port3_GPON4000: 
-description "ONT-:port1_GPON4000:-:port2_GPON4000:-:port3_GPON4000:" 
-serial ":SN_GPON:"
-password ":pass_GPON:"
+interface ont {slot}/{port}/{id}
+description "ONT-{slot}-{port}-{id}"
+serial "{serial}"
+password "{ploam}"
 service 4 profile cross-connect "crossconnect-01"
 service 4 profile dba "dba-00"
 profile ports "ports-01"
@@ -225,9 +236,38 @@ commit
 confirm
 </p>
 
-<p id="GPON_MA5800">
-    enable
-    display ont info 0 6 5 35
+<p id="GPON_5800_245">
+enable - войти в привилегированный режим
+display ont autofind all  - убедиться что ONT находится в нужном порту
+display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
+display vlan desc 1-4093  -  определить теги vlan TR069 (управление ONT) и FVNO
+display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id}   - посмотреть мак
+
+config
+interface gpon {frame_id}/{slot_id}
+ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 23 ont-srvprofile-id 23 desc "{contract_id}"
+quit
+service-port vlan 75 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
+service-port vlan 2995 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
+quit
+save
+</p>
+
+<p id="GPON_5800_other">
+enable - войти в привилегированный режим
+display ont autofind all  - убедиться что ONT находится в нужном порту
+display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
+display vlan desc 1-4093  -  определить теги vlan TR069 (управление ONT) и FVNO
+display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id}   - посмотреть мак
+
+config
+interface gpon {frame_id}/{slot_id}
+ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 3 ont-srvprofile-id 3 desc "{contract_id}"
+quit
+service-port vlan {tag_vlanTR069} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
+service-port vlan {tag_vlanFVNO} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
+quit
+save
 </p>
 
 
