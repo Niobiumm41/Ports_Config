@@ -22,7 +22,7 @@ const pole_vlanFVNO = document.getElementById("pole_vlanFVNO");
 const vlanTR069 = document.getElementById("vlanTR069");
 const vlanFVNO = document.getElementById("vlanFVNO");
 
-//Модели SW
+//config
 const A1_UTP = document.getElementById("A1_UTP");
 const A1_FTTH = document.getElementById("A1_FTTH");
 const A2_UTP = document.getElementById("A2_UTP");
@@ -201,5 +201,8 @@ function Ports_Config() {
         id_G58.value = "";
         vlanTR069.value = "";
         vlanFVNO.value = "";
+        config.value = " ";
+        utp_ftth.value = "none";
+        ip_sw.value = "none";
     }
     
