@@ -136,12 +136,12 @@ save
 </p>
 
 <p id="Eltex_UTP">
-show interfaces status   - список портов
-show interfaces switchport gi0/{interface_id}  - смотрим влан/настройки на порту
-sh mac-address-table int gi0/{interface_id}   - смотрим мак
-sh int des  - смотрим деск
-sh running-config interface gi0/{interface_id}  - смотреть настрйоки на порту
-sh logging   - логи
+show interfaces status - список портов
+show interfaces switchport gi0/{interface_id} - смотрим влан/настройки на порту
+sh mac-address-table int gi0/{interface_id} - смотрим мак
+sh int des - смотрим деск
+sh running-config interface gi0/{interface_id} - смотреть настройки на порту
+sh logging - логи
 
 conf t
 interface gi0/{interface_id}
@@ -178,12 +178,12 @@ copy running-config startup-config
 </p>
 
 <p id="Eltex_FTTH">
-show interfaces status   - список портов
-show interfaces switchport gi0/{interface_id}  - смотрим влан/настройки на порту
-sh mac-address-table int gi0/{interface_id}   - смотрим мак
-sh int des  - смотрим деск
-sh running-config interface gi0/{interface_id}  - смотреть настрйоки на порту
-sh logging   - логи
+show interfaces status - список портов
+show interfaces switchport gi0/{interface_id} - смотрим влан/настройки на порту
+sh mac-address-table int gi0/{interface_id} - смотрим мак
+sh int des - смотрим деск
+sh running-config interface gi0/{interface_id} - смотреть настрйоки на порту
+sh logging - логи
 
 conf t
 interface gi0/{interface_id}
@@ -240,14 +240,15 @@ confirm
 
 <p id="GPON_5800_245">
 enable - войти в привилегированный режим
-display ont autofind all  - убедиться что ONT находится в нужном порту
+display ont autofind all - убедиться что ONT находится в нужном порту
 display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
-display vlan desc 1-4093  -  определить теги vlan TR069 (управление ONT) и FVNO
-display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id}   - посмотреть мак
+display vlan desc 1-4093 - определить теги vlan TR069 (управление ONT) и FVNO
+display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посмотреть мак
 
 config
 interface gpon {frame_id}/{slot_id}
 ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 23 ont-srvprofile-id 23 desc "{contract_id}"
+ont ipconfig {port-id} {ont-id} dhcp vlan 69 priority 7
 quit
 service-port vlan 75 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
 service-port vlan 2995 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
@@ -257,14 +258,15 @@ save
 
 <p id="GPON_5800_other">
 enable - войти в привилегированный режим
-display ont autofind all  - убедиться что ONT находится в нужном порту
+display ont autofind all - убедиться что ONT находится в нужном порту
 display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
-display vlan desc 1-4093  -  определить теги vlan TR069 (управление ONT) и FVNO
-display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id}   - посмотреть мак
+display vlan desc 1-4093 - определить теги vlan TR069 (управление ONT) и FVNO
+display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посмотреть мак
 
 config
 interface gpon {frame_id}/{slot_id}
 ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 3 ont-srvprofile-id 3 desc "{contract_id}"
+ont ipconfig {port-id} {ont-id} dhcp vlan 69 priority 7
 quit
 service-port vlan {tag_vlanTR069} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
 service-port vlan {tag_vlanFVNO} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
