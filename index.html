@@ -248,7 +248,7 @@ display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посм�
 config
 interface gpon {frame_id}/{slot_id}
 ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 23 ont-srvprofile-id 23 desc "{contract_id}"
-ont ipconfig {port-id} {ont-id} dhcp vlan 69 priority 7
+ont ipconfig {port_id} {ont_id} dhcp vlan 69 priority 7
 quit
 service-port vlan 75 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
 service-port vlan 2995 gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
@@ -266,7 +266,7 @@ display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посм�
 config
 interface gpon {frame_id}/{slot_id}
 ont add {port_id} {ont_id} password-auth {ploam} always-on omci ont-lineprofile-id 3 ont-srvprofile-id 3 desc "{contract_id}"
-ont ipconfig {port-id} {ont-id} dhcp vlan 69 priority 7
+ont ipconfig {port_id} {ont_id} dhcp vlan 69 priority 7
 quit
 service-port vlan {tag_vlanTR069} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 4 multi-service user-vlan 69
 service-port vlan {tag_vlanFVNO} gpon {frame_id}/{slot_id}/{port_id} ont {ont_id} gemport 0 multi-service user-vlan 20
