@@ -44,8 +44,8 @@ h1 {
     text-transform: uppercase;
 }
 
-#A1_UTP, #A1_FTTH, #A2_UTP, #A2_FTTH, #Eltex_UTP, #Eltex_FTTH, #GPON_4000, #GPON_5800_245, 
-#GPON_5800_other, #pole_utp_ftth, #pole_port, #pole_contract, #pole_vlan, #pole_portG4, #pole_portG58,
-#pole_snGPON, #pole_passGPON, #pole_ip_sw, #pole_vlanTR069, #pole_vlanFVNO{
+#A1_UTP, #A1_FTTH, #A2_UTP, #A2_FTTH, #Eltex_2428_UTP, #Eltex_2428_FTTH, #GPON_4000, #GPON_5800_245, 
+#GPON_5800_other, #GPON_Eltex_8x_16x, #pole_utp_ftth, #pole_port, #pole_contract, #pole_vlan, #pole_portG4, #pole_portG58, 
+#pole_portG8_16x, #pole_snGPON, #pole_passGPON, #pole_ip_sw, #pole_vlanTR069, #pole_vlanFVNO{
     display: none;
-}
+} 

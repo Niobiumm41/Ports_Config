@@ -21,17 +21,19 @@ const pole_vlanTR069 = document.getElementById("pole_vlanTR069");
 const pole_vlanFVNO = document.getElementById("pole_vlanFVNO");
 const vlanTR069 = document.getElementById("vlanTR069");
 const vlanFVNO = document.getElementById("vlanFVNO");
+const pole_portG8_16x = document.getElementById("pole_portG8_16x");
 
 //config
 const A1_UTP = document.getElementById("A1_UTP");
 const A1_FTTH = document.getElementById("A1_FTTH");
 const A2_UTP = document.getElementById("A2_UTP");
 const A2_FTTH = document.getElementById("A2_FTTH");
-const Eltex_UTP = document.getElementById("Eltex_UTP");
-const Eltex_FTTH = document.getElementById("Eltex_FTTH");
+const Eltex_2428_UTP = document.getElementById("Eltex_2428_UTP");
+const Eltex_2428_FTTH = document.getElementById("Eltex_2428_FTTH");
 const GPON_4000 = document.getElementById("GPON_4000");
 const GPON_5800_245 = document.getElementById("GPON_5800_245");
 const GPON_5800_other = document.getElementById("GPON_5800_other");
+const GPON_Eltex_8x_16x = document.getElementById("GPON_Eltex_8x_16x");
 
 sw.addEventListener ('change', SW_parametr);
 ip_sw.addEventListener ('change', IP_sw);
@@ -51,6 +53,7 @@ function SW_parametr() {
         pole_ip_sw.style.display = "none";
         pole_vlanTR069.style.display = "none";
         pole_vlanFVNO.style.display = "none";
+        pole_portG8_16x.style.display = "none";
     } 
     if (sw.value == "Eltex_2428") {
         pole_utp_ftth.style.display = "block";
@@ -64,6 +67,7 @@ function SW_parametr() {
         pole_ip_sw.style.display = "none";
         pole_vlanTR069.style.display = "none";
         pole_vlanFVNO.style.display = "none";
+        pole_portG8_16x.style.display = "none";
     } 
     if (sw.value == "GPON_MA4000") {
         pole_portG4.style.display = "block";
@@ -77,6 +81,7 @@ function SW_parametr() {
         pole_ip_sw.style.display = "none";
         pole_vlanTR069.style.display = "none";
         pole_vlanFVNO.style.display = "none";
+        pole_portG8_16x.style.display = "none";
     } 
     if (sw.value == "GPON_MA5800") { 
         pole_ip_sw.style.display = "block";
@@ -88,10 +93,24 @@ function SW_parametr() {
         pole_utp_ftth.style.display = "none";
         pole_port.style.display = "none";
         pole_vlan.style.display = "none";
+        pole_portG8_16x.style.display = "none";
     } 
+    if (sw.value == "GPON_Eltex_8x/16x") {
+        pole_ip_sw.style.display = "none";
+        pole_portG8_16x.style.display = "block";
+        pole_portG58.style.display = "none";
+        pole_contract.style.display = "none";
+        pole_passGPON.style.display = "block";
+        pole_snGPON.style.display = "block";
+        pole_portG4.style.display = "none";
+        pole_utp_ftth.style.display = "none";
+        pole_port.style.display = "none";
+        pole_vlan.style.display = "none";
+    }
     if (sw.value == "none") {
         pole_utp_ftth.style.display = "none";
         pole_port.style.display = "none";
+        pole_portG8_16x.style.display = "none";
         pole_contract.style.display = "none";
         pole_vlan.style.display = "none";
         pole_portG4.style.display = "none";
@@ -121,6 +140,8 @@ function Ports_Config() {
     var vlan_cur = vlan.value;
     var slotG4_cur = slot_G4.value;
     var portG4_cur = port_G4.value;
+    var slot_G8_16x_cur = slot_G8_16x.value;
+    var port_G8_16x_cur = port_G8_16x.value;
     var idG4_cur = id_G4.value;
     var snG_cur = sn_GPON.value;
     var passG_cur = pass_GPON.value;
@@ -138,6 +159,8 @@ function Ports_Config() {
         , "{slot}": slotG4_cur
         , "{port}": portG4_cur
         , "{id}": idG4_cur
+        , "{slot_G8_16x}": slot_G8_16x_cur
+        , "{port_G8_16x}": port_G8_16x_cur
         , "{serial}": snG_cur
         , "{ploam}": passG_cur
         ,"{frame_id}": frameG58_cur
@@ -165,11 +188,11 @@ function Ports_Config() {
             config.value = new_config;
         } 
         if (sw.value == "Eltex_2428" && utp_ftth.value == "UTP") {
-            var new_config = Eltex_UTP.textContent.replace(/{interface_id}|{contract_id}|{tag_vlan}/g, (matched) => edit_config[matched]);
+            var new_config = Eltex_2428_UTP.textContent.replace(/{interface_id}|{contract_id}|{tag_vlan}/g, (matched) => edit_config[matched]);
             config.value = new_config;
         } 
         if (sw.value == "Eltex_2428" && utp_ftth.value == "FTTH") {
-            var new_config = Eltex_FTTH.textContent.replace(/{interface_id}|{contract_id}|{tag_vlan}/g, (matched) => edit_config[matched]);
+            var new_config = Eltex_2428_FTTH.textContent.replace(/{interface_id}|{contract_id}|{tag_vlan}/g, (matched) => edit_config[matched]);
             config.value = new_config;
         } 
         if (sw.value == "GPON_MA4000") {
@@ -184,6 +207,10 @@ function Ports_Config() {
             var new_config = GPON_5800_other.textContent.replace(/{frame_id}|{slot_id}|{port_id}|{ont_id}|{ploam}|{contract_id}|{tag_vlanTR069}|{tag_vlanFVNO}/g, (matched) => edit_config[matched]);
             config.value = new_config;
         }
+        if (sw.value == "GPON_Eltex_8x/16x") {
+            var new_config = GPON_Eltex_8x_16x.textContent.replace(/{slot_G8_16x}|{port_G8_16x}|{serial}|{ploam}/g, (matched) => edit_config[matched]);
+            config.value = new_config;
+        }
     }
 
     function Clean() {
@@ -192,6 +219,8 @@ function Ports_Config() {
         vlan.value = "";
         slot_G4.value = "";
         port_G4.value = "";
+        slot_G8_16x.value= "";
+        port_G8_16x.value= "";
         id_G4.value = "";
         sn_GPON.value = "";
         pass_GPON.value = "";

@@ -16,6 +16,7 @@
         <option value="Eltex_2428">Eltex MES-2428</option>
         <option value="GPON_MA4000">GPON MA4000</option>
         <option value="GPON_MA5800">GPON MA5800</option>
+        <option value="GPON_Eltex_8x/16x">GPON Eltex 8x/16x</option>
     </select>
     <button id="btn_clean">Очистить</button>
 </p>
@@ -51,6 +52,10 @@
         <input type="text" size="3" id="port_G58">
         <input type="text" size="3" id="id_G58">
     </p>
+    <p id="pole_portG8_16x">Указать порт GPON:
+        <input type="text" size="3" id="slot_G8_16x">
+        <input type="text" size="3" id="port_G8_16x">
+    </p>
     <p id="pole_vlanTR069">Указать VLAN TR069:
         <input type="text" size="15" id="vlanTR069">
     </p>
@@ -61,7 +66,7 @@
         <input type="text" size="19" id="sn_GPON">
     </p>
     <p id="pole_passGPON">Указать пароль:
-        <input type="text" size="15" id="pass_GPON">
+        <input type="text" size="16" id="pass_GPON">
     </p>
     <p id="pole_contract">Указать номер договора:
         <input type="text" size="15" id="contract">
@@ -135,13 +140,14 @@ config ports {interface_id} state dis
 save 
 </p>
 
-<p id="Eltex_UTP">
+<p id="Eltex_2428_UTP">
 show interfaces status - список портов
 show interfaces switchport gi0/{interface_id} - смотрим влан/настройки на порту
 sh mac-address-table int gi0/{interface_id} - смотрим мак
 sh int des - смотрим деск
 sh running-config interface gi0/{interface_id} - смотреть настройки на порту
 sh logging - логи
+test cable-diagnostics gi0/{interface_id}  - каб диаг
 
 conf t
 interface gi0/{interface_id}
@@ -177,7 +183,7 @@ exit
 copy running-config startup-config
 </p>
 
-<p id="Eltex_FTTH">
+<p id="Eltex_2428_FTTH">
 show interfaces status - список портов
 show interfaces switchport gi0/{interface_id} - смотрим влан/настройки на порту
 sh mac-address-table int gi0/{interface_id} - смотрим мак
@@ -220,7 +226,10 @@ copy running-config startup-config
 
 <p id="GPON_4000">
 show interface ont {slot}/{port} unactivated
+show interface ont 0-15/0-7/0-63 unactivated
 show running-config interface ont {slot}/{port}/{id}
+show interface ont {slot}/{port}/{id} laser  
+show interface ont {slot}/{port}/{id} state
 show mac interface ont {slot}/{port}/{id}
 
 configure terminal      
@@ -243,6 +252,7 @@ enable - войти в привилегированный режим
 display ont autofind all - убедиться что ONT находится в нужном порту
 display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
 display vlan desc 1-4093 - определить теги vlan TR069 (управление ONT) и FVNO
+display ont info option run-state {frame_id} {slot_id} {port_id} {ont_id} - смотрим затухание
 display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посмотреть мак
 
 config
@@ -261,6 +271,7 @@ enable - войти в привилегированный режим
 display ont autofind all - убедиться что ONT находится в нужном порту
 display ont info {frame_id} {slot_id} {port_id} {ont_id} - удостовериться, что порт свободен
 display vlan desc 1-4093 - определить теги vlan TR069 (управление ONT) и FVNO
+display ont info option run-state {frame_id} {slot_id} {port_id} {ont_id} - смотрим затухание
 display mac-address port {frame_id}/{slot_id}/{port_id} ont {ont_id} - посмотреть мак
 
 config
@@ -274,7 +285,27 @@ quit
 save
 </p>
 
+<p id="GPON_Eltex_8x_16x">
+show interface ont {slot_G8_16x} unactivated
+show running-config interface ont {slot_G8_16x}/{port_G8_16x}
+show interface ont {slot_G8_16x}/{port_G8_16x} laser  - значение Rx
+show interface ont {slot_G8_16x}/{port_G8_16x} state  - значение RSSI
+show mac interface ont {slot_G8_16x}/{port_G8_16x}
 
+configure terminal 
+interface ont {slot_G8_16x}/{port_G8_16x}
+description "ONT-{slot_G8_16x}-{port_G8_16x}"
+serial "{serial}"
+password "{ploam}"
+service 4 profile cross-connect "crossconnect-01"
+service 4 profile dba "dba-00"
+profile ports "ports-01"
+template "template-10" 
+exit
+exit
+commit
+save
+</p>
 
     <script src="script.js"></script>
 </body>
