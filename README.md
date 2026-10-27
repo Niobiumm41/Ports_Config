@@ -1,3 +1,3 @@
+<img width="932" height="601" alt="изображение" src="https://github.com/user-attachments/assets/e77338a6-366a-4846-b7d2-f6ad1a2f5e78" />
 
-!Изображение!(https://github.com/Niobiumm41/Ports_Config/assets/90767740/f663fc1e-cf43-4e87-afc8-ab3f0ae07af2)
 
